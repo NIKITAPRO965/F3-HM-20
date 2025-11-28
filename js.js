@@ -1,3 +1,5 @@
+// Створити галерею зображень, яку можна прогортати за допомогою клавіш клавіатури (наприклад, вліво / вправо)
+
 const listRef = document.querySelector(".gallery");
 const itemRef = document.querySelectorAll(".image");
 const modal = document.querySelector(".full-image-container");
@@ -71,9 +73,66 @@ if (modal.style.display === "block") {
 
 
 
+// Напиши скрипт створення і очищення колекції елементів. Користувач вводить кількість елементів в input і натискає кнопку Створити, після чого рендериться колекція. При натисканні на кнопку Очистити, колекція елементів очищається.
+
+// Створи функцію createBoxes(amount), яка приймає 1 параметр amount — число. Функція створює стільки div, скільки вказано в amount і додає їх в div#boxes.
+
+// Кожен створений div:
+
+// Має випадковий rgb колір фону
+// Розміри найпершого div — 30px на 30px
+// Кожен наступний div після першого, повинен бути ширше і вище попереднього на 10px
+
+// Створи функцію destroyBoxes(), яка очищає div#boxes.
 
 
 
+
+const controls = document.querySelector("#controls");
+const input = controls.querySelector("input");
+const renderBtn = controls.querySelector('[data-action="render"]');
+const destroyBtn = controls.querySelector('[data-action="destroy"]');
+const boxes = document.querySelector("#boxes");
+
+renderBtn.addEventListener("click", (e) => {
+  const amount = Number(input.value);
+  createBoxes(amount);
+});
+
+destroyBtn.addEventListener("click", (e) => {
+  destroyBoxes();
+});
+
+function createBoxes(amount) {
+  destroyBoxes();
+
+  let size = 30;
+  const elements = [];
+
+  for (let i = 0; i < amount; i++) {
+    const div = document.createElement("div");
+
+    div.style.width = `${size}px`;
+    div.style.height = `${size}px`;
+    div.style.backgroundColor = getRandomColor();
+
+    elements.push(div);
+    size += 10;
+  }
+
+  boxes.append(...elements);
+}
+
+function destroyBoxes() {
+  boxes.innerHTML = "";
+}
+
+function getRandomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
 
 
 
