@@ -74,9 +74,9 @@ function createBoxes(amount) {
   for (let i = 0; i < amount; i++) {
     const div = document.createElement("div");
 
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
+    const r = Math.random() * 256;
+    const g = Math.random() * 256;
+    const b = Math.random() * 256;
 
     div.style.width = `${size}px`;
     div.style.height = `${size}px`;
