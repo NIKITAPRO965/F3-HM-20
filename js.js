@@ -2,47 +2,32 @@
 
 const listRef = document.querySelector(".gallery");
 const itemRef = document.querySelectorAll(".image");
-const modal = document.querySelector(".full-image-container");
-const modalImage = document.querySelector(".full-image");
 
-let currentIndex = 0;
 let position = 0;
-const maxLeft = -(itemRef.length - 1) * 500;
+const maxLeft = -(itemRef.length - 1) * 320;
 
 
-itemRef.forEach((img, index) => {
-  img.addEventListener("click", (e) => {
-    currentIndex = index;
-    position = -500 * currentIndex
-    modal.style.display = "block";
-    modalImage.src = e.target.src;
-  });
-});
-
-modal.addEventListener("click", (e) => {
-  modal.style.display = "none";
-});
-
-
-document.addEventListener("keydown", (e) => {
-if (modal.style.display === "block") {
+window.addEventListener("keydown", (e) => {
   if (e.code === "ArrowRight") {
     if (position > maxLeft) {
-      position -= 500;
-        currentIndex++;
-    //   listRef.style.transform = `translateX(${position}px)`;
-      modalImage.src = itemRef[currentIndex].src;
+      position -= 320;
+
+      if (position < maxLeft) {
+        position = maxLeft;
+      }
+      listRef.style.transform = `translateX(${position}px)`;
     }
   }
 
   if (e.code === "ArrowLeft") {
     if (position < 0) {
-      position += 500;
-        currentIndex--;
-    //   listRef.style.transform = `translateX(${position}px)`;
-      modalImage.src = itemRef[currentIndex].src;
+      position += 320;
+
+      if (position > 0) {
+        position = 0;
+      }
+      listRef.style.transform = `translateX(${position}px)`;
     }
-  }
 }
 });
 
@@ -99,10 +84,6 @@ renderBtn.addEventListener("click", (e) => {
   createBoxes(amount);
 });
 
-destroyBtn.addEventListener("click", (e) => {
-  destroyBoxes();
-});
-
 function createBoxes(amount) {
   destroyBoxes();
 
@@ -112,9 +93,13 @@ function createBoxes(amount) {
   for (let i = 0; i < amount; i++) {
     const div = document.createElement("div");
 
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+
     div.style.width = `${size}px`;
     div.style.height = `${size}px`;
-    div.style.backgroundColor = getRandomColor();
+    div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
     elements.push(div);
     size += 10;
@@ -123,16 +108,14 @@ function createBoxes(amount) {
   boxes.append(...elements);
 }
 
+destroyBtn.addEventListener("click", (e) => {
+  destroyBoxes();
+});
+
 function destroyBoxes() {
   boxes.innerHTML = "";
 }
 
-function getRandomColor() {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
-  return `rgb(${r}, ${g}, ${b})`;
-}
 
 
 
