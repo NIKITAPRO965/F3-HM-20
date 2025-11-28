@@ -11,10 +11,6 @@ window.addEventListener("keydown", (e) => {
   if (e.code === "ArrowRight") {
     if (position > maxLeft) {
       position -= 320;
-
-      if (position < maxLeft) {
-        position = maxLeft;
-      }
       listRef.style.transform = `translateX(${position}px)`;
     }
   }
@@ -22,25 +18,10 @@ window.addEventListener("keydown", (e) => {
   if (e.code === "ArrowLeft") {
     if (position < 0) {
       position += 320;
-
-      if (position > 0) {
-        position = 0;
-      }
       listRef.style.transform = `translateX(${position}px)`;
     }
 }
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 
